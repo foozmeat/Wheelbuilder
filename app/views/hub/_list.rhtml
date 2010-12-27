@@ -1,0 +1,26 @@
+<% if @hubs.length > 0 %>
+<form name="sform" id="sform" action="" style="display:inline;">
+
+<label for="hub_description">Filter: </label>
+<%= text_field_tag("search", params['search'], :size => 20 ) %>
+
+<select name="forr" id="forr">
+	<option value="">Front or Rear</option>
+	<option value="F">Front</option>
+	<option value="R">Rear</option>
+</select>
+
+</form>
+
+
+<%= observe_form 'sform',  :frequency => 0.5,
+         :update => 'table',
+         :before => "Element.show('menu_spinner')",
+         :success => "Element.hide('menu_spinner')",
+         :url => {:action => 'list'} %>
+
+
+<div id="table">
+<%= render :partial => 'hubs_list' %>
+</div>
+<% end %>

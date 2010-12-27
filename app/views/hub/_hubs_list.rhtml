@@ -1,0 +1,40 @@
+<%= will_paginate @hubs %>
+<table class="list">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Description</th>
+      <th>Type</th>
+      <th>OLD</th>
+      <th>D<sub>L</sub></th>
+      <th>D<sub>R</sub></th>
+      <th>W<sub>L</sub></th>
+      <th>W<sub>R</sub></th>
+      <th>S</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @hubs.each do |i| %>
+    <tr class="<%= cycle("even","odd") %>">
+      <td><%= i.id %>
+      <td><%= link_to_remote i.description, 
+      :update => "top", 
+      :url => {:controller => "wheel", :action => "update", :hub => i.id},
+      :before => "Element.show('menu_spinner')", :success => "Element.hide('menu_spinner')",
+      :complete => visual_effect(:highlight, "results", :duration => 1) 
+      %>
+		<% if i.comment %>
+			<div class="comment"><%= i.comment %></div>
+		<% end %>
+	</td>
+      <td><%= i.forr_for_display %></td>
+      <td><%= i.old.round %></td>
+      <td><%= i.dl %></td>
+      <td><%= i.dr %></td>
+      <td><%= i.wl %></td>
+      <td><%= i.wr %></td>
+      <td><%= i.s %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

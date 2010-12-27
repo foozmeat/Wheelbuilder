@@ -1,0 +1,99 @@
+<%= content_tag :div, flash[:notice], :id => 'flash_notice' unless flash[:notice].nil?  %>
+<%= javascript_tag("new Effect.Highlight('flash_notice');") unless flash[:notice].nil? %>
+
+<form id="wheel">
+
+<table>
+	<tr>
+		<th><%= link_to_remote "Select Hub", :update => "editor_area", :url => {:controller => "hub", :action => "list"},:before => "Element.show('menu_spinner')", :success => "Element.hide('menu_spinner')" %></th>
+		<td>or choose from your <select <%= session[:hub_list].length == 0 ? "disabled" : "" %> name="hub" id="hub_selector">
+			<option disabled value="">Previous Selections</option>
+			<% session[:hub_list].each{|h| 
+				h.each {|key, value| %>
+					<option <%= session[:wheel].hub.id == value ? "selected" : "" %> value="<%= value %>"><%= key %></option>
+				<% } %>
+			<% } %>
+			</select>
+		</td>
+    <td><%= link_to_remote image_tag("add-item-green.gif", :alt => "Add Hub"), :update => "editor_area", :url => {:controller => "hub", :action => "new"},:before => "Element.show('menu_spinner')", :success => "Element.hide('menu_spinner')" %></td>
+    <td><%= link_to image_tag("printer-green.gif", :alt => "Print hub database"), {:controller => "hub", :action => "print"} %></td>
+    
+	</tr>
+	<tr>
+		<th><%= link_to_remote "Select Rim", :update => "editor_area", :url => {:controller => "rim", :action => "list"},:before => "Element.show('menu_spinner')", :success => "Element.hide('menu_spinner')" %></th>
+		<td>or choose from your <select <%= session[:rim_list].length == 0 ? "disabled" : "" %> name="rim" id="rim_selector">
+			<option disabled value="">Previous Selections</option>
+			<% session[:rim_list].each{|r| 
+				r.each {|key, value| %>
+					<option <%= session[:wheel].rim.id == value ? "selected" : "" %> value="<%= value %>"><%= key %></option>
+				<% } %>
+			<% } %>
+			</select>
+		</td>
+    <td><%= link_to_remote image_tag("add-item-green.gif", :alt => "Add Rim"), :update => "editor_area", :url => {:controller => "rim", :action => "new"},:before => "Element.show('menu_spinner')", :success => "Element.hide('menu_spinner')" %></td>
+    <td><%= link_to image_tag("printer-green.gif", :alt => "Print Rim database"), {:controller => "rim", :action => "print"} %></td>
+	</tr>
+</table>
+<table>
+	<tr>
+	
+  <th>Spokes</th>
+	<td>
+		<select name="spokes" id="spokes">
+			<% session[:wheel].spoke_counts.each{|s| %>
+				<option <%= session[:wheel].spokes == s ? "selected" : "" %> value="<%= s %>"><%= s %></option>
+			<% } %>
+		</select>
+	</td>
+    <td rowspan="3" colspan="2" id="spinner_cell">
+    <%= image_tag("frog.gif", :align => 'absmiddle', :border=> 0, :id => "menu_spinner", :style=>"display: none;") %>
+    </td>
+	</tr>
+	<tr>
+  <th>Pattern</th>
+	<td>
+		<select name="cross" id="cross">
+			<% session[:wheel].patterns.sort.each {|key, value| %>
+					<option <%= session[:wheel].cross == key ? "selected" : "" %> value="<%= key %>"><%= value %></option>
+			<% } %>
+		</select>
+	</td>
+	</tr>
+  <tr>
+    <th>Nipple Length</th>
+  	<td>
+  		<select name="nipple_correction" id="nipple_correction">
+				<% session[:wheel].nipple_corrections.sort.each {|key, value| %>
+						<option <%= session[:wheel].nipple_correction == key ? "selected" : "" %> value="<%= key %>"><%= value %></option>
+				<% } %>
+  		</select>
+  	</td>
+  </tr>
+</table>
+
+</form>
+
+<table id="results">
+  <tr>
+    <th>Left</th><td><%= session[:wheel].l_length %></td>
+    <th>Right</th><td><%= session[:wheel].r_length %></td>
+	<td><%= link_to "Link", {:controller => :wheel, :action => :update, 
+		:rim => session[:wheel].rim.id,
+		:hub => session[:wheel].hub.id,
+		:cross => session[:wheel].cross,
+		:spokes => session[:wheel].spokes,
+		:nipple_correction => session[:wheel].nipple_correction,
+		
+		}%></td>
+		<td><%= link_to image_tag("printer-green.gif", :alt => "Print Wheel"), {:controller => "wheel", :action => "print"} %></td>
+    
+  </tr>
+</table>
+
+<%= observe_form 'wheel',
+  :update => 'top',
+  :url => {:controller => :wheel, :action => 'update'},
+  :before => "Element.show('menu_spinner')", :success => "Element.hide('menu_spinner')",
+  :complete => visual_effect(:highlight, "results", :duration => 1) 
+%>	
+

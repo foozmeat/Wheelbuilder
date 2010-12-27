@@ -1,0 +1,28 @@
+<% if @rims.length > 0 %>
+
+<form name="sform" id="sform" action="" style="display:inline;">
+
+<label for="rim_description">Filter: </label>
+<%= text_field_tag("search", params['search'], :size => 20 ) %>
+<select name="size">
+  <option value="">Any Size</option>
+  <% rim_sizes.each{|r|
+    r.each {|key, value| %>
+  <option value="<%= key %>"><%= value %> (<%= key %>)</option>
+  <% }} %>
+</select>
+
+</form>
+
+<%= observe_form 'sform',  :frequency => 2,
+         :update => 'table',
+         :before => "Element.show('menu_spinner')",
+         :success => "Element.hide('menu_spinner')",
+         :url => {:action => 'list'} %>
+
+
+<div id="table">
+<%= render :partial => 'rims_list' %>
+</div>
+
+<% end %>

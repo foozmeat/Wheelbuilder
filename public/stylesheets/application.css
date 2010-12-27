@@ -1,0 +1,147 @@
+body { 
+	margin: 0;
+	text-align: left;
+	background: none;
+	background-color: white;
+	font-family: Helvetica, sans-serif;
+}
+
+.comment {
+	font-size: smaller;
+	font-style: italic;
+	color: gray;
+	padding-left: 10px;
+}
+
+.center {
+	margin: auto;
+	text-align: center;
+}
+
+abbr, acronym { 
+	border-bottom: 1px dotted #000; 
+	cursor: help; 
+}
+
+#results {
+/*	width: 200px;*/
+}
+
+th {
+	color: rgb(155, 187, 56);
+}
+
+td, th {
+	margin: 0;
+	padding: 2px 6px;
+	border: none;
+	text-align: left;
+	white-space:nowrap;
+}
+
+label {
+	color: rgb(155, 187, 56);
+	margin: 0;
+	padding: 2px 6px;
+	border: none;
+	text-align: left;
+	white-space:nowrap;
+	font-weight: bold;	
+}
+
+.wrap {
+	white-space:normal;
+}
+
+.pagination {
+	display:inline;
+	text-align: right;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+.list {
+	border: 1px solid lightgray;
+}
+
+.list td {
+	border: none;
+	border-left: 1px solid lightgray;
+	border-right: 1px solid lightgray;
+}
+
+.list th {
+	border: 1px solid lightgray;
+}
+
+
+.spacer_cell {
+	width: 60px;
+	border: none;
+}
+
+.odd {
+	background-color: #FAFAF0;
+}
+
+.default_value {
+	color: lightgray;
+	font-style: italic;
+}
+
+#spinner_cell {
+	border: none;
+	height: 90px;
+	width: 70px;
+}
+
+select {
+/*	max-width: 200px;*/
+}
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+.fieldWithErrors > input {
+  border: 1px solid red;
+}
+
+.fieldWithErrors {
+  display: inline;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+/**,td,th { border: 1px solid red;}*/

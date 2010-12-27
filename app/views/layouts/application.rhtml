@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Free Bike Tools :: Wheel Builder</title>
+	<link href="http://freebiketools.org/wp-content/themes/freebiketools/style.css" media="all" rel="Stylesheet" type="text/css" />
+	<%= stylesheet_link_tag "application", :media => "all" %>
+	<%= stylesheet_link_tag "print", :media => "print" %>
+	<%= javascript_include_tag "prototype" %>
+	<%= javascript_include_tag "effects" %>
+	<%= javascript_include_tag "application" %>
+	<!--[if !IE]>-->
+	<link media="only screen and (max-device-width: 480px)" href="<%= stylesheet_path "iphone.css" %>" type="text/css" rel="stylesheet" />
+	<!--<![endif]-->
+	<meta name="viewport" content="width=device-width">
+</head>
+
+<body>
+	<% unless @no_menu %>
+  <div id="top">
+	  <%= render :partial => 'layouts/menus' %>
+  </div>
+  <hr>
+	<% end %>
+	
+	<div id="editor_area">
+		<%= yield %>
+	</div>
+	
+  <!-- <div class="small">All images used on freebiketools.org are &copy;2008 their respective owners. Product images which have been provided by manufacturers are being used solely for informational purposes.</div> -->
+	<script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+	var pageTracker = _gat._getTracker("UA-3066498-1");
+	pageTracker._initData();
+	pageTracker._trackPageview();
+	</script>
+	</body>
+</html>

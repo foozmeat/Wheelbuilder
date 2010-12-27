@@ -1,0 +1,20 @@
+front:
+  id: 1
+  description: Shimano Dura-Ace
+  s: 2.6
+  dl: 36.6
+  dr: 36.6
+  wl: 36.2
+  wr: 36.2
+  forr: F
+  old: 100
+rear:
+  id: 2
+  description: Shimano Dura-Ace threaded
+  s: 2.6
+  dl: 42.6
+  dr: 42.6
+  wl: 40.7
+  wr: 17.0
+  forr: R
+  old: 130
