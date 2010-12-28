@@ -3,9 +3,6 @@
 
 class ApplicationController < ActionController::Base
   
-  session :session_key => '_wheelbuilder_session_id'
-  session :session_expires_after => 1.year
-
   def setup_session
     @wheel = session[:wheel] ||= Wheel.new
     @hub_list = session[:hub_list] ||= Array.new
