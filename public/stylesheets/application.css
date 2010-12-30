@@ -28,7 +28,6 @@ abbr, acronym {
 }
 
 th {
-	color: rgb(155, 187, 56);
 }
 
 td, th {
@@ -40,7 +39,6 @@ td, th {
 }
 
 label {
-	color: rgb(155, 187, 56);
 	margin: 0;
 	padding: 2px 6px;
 	border: none;
