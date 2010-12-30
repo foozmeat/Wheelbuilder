@@ -5,7 +5,6 @@
       <th>ERD</th>
       <th>OSB</th>
       <th>Size (ISO)</th>
-      <th>RCF</th>
     </tr>
   </thead>
   <tbody>
@@ -19,7 +18,6 @@
       <td><%= i.erd %></td>
       <td><%= if i.osb.zero?; 0 else i.osb; end %></td>
       <td><%= i.size_for_display %> (<%= i.size %>)</td>
-      <td><%= i.rim_correction_factor %>
     </tr>
     <% end %>
   </tbody>
