@@ -77,7 +77,7 @@
   <tr>
     <th>Left</th><td><%= session[:wheel].l_length %></td>
     <th>Right</th><td><%= session[:wheel].r_length %></td>
-	<td><%= link_to "Link", {:controller => :wheel, :action => :update, 
+	<td><%= link_to "Link to this build", {:controller => :wheel, :action => :update, 
 		:rim => session[:wheel].rim.id,
 		:hub => session[:wheel].hub.id,
 		:cross => session[:wheel].cross,
@@ -85,7 +85,7 @@
 		:nipple_correction => session[:wheel].nipple_correction,
 		
 		}%></td>
-		<td><%= link_to image_tag("printer-green.gif", :alt => "Print Wheel"), {:controller => "wheel", :action => "print"} %></td>
+		<td><%= link_to "Print this build", {:controller => "wheel", :action => "print"} %></td>
     
   </tr>
 </table>
