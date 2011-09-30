@@ -1,7 +1,7 @@
-/log/
-db/schema.rb 
-db/schema.sql
-tmp/
+/log/*
+/db/schema.rb 
+/db/schema.sql
+/tmp/*
 /config/database.yml
 /db/dump_db.sh
 /db/import_remote_db.sh
