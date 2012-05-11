@@ -1,5 +1,5 @@
 <%= will_paginate @hubs %>
-<table class="list">
+<table class="table table-striped">
   <thead>
     <tr>
       <th>ID</th>
@@ -16,7 +16,7 @@
   </thead>
   <tbody>
     <% @hubs.each do |i| %>
-    <tr class="<%= cycle("even","odd") %>">
+    <tr>
       <td><%= i.id %>
       <td><%= link_to_remote i.description, 
       :update => "top", 

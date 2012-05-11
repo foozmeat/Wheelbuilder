@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Free Bike Tools :: Wheel Builder</title>
-	<link href="http://freebiketools.org/wp-content/themes/freebiketools/style.css" media="all" rel="Stylesheet" type="text/css" />
+	<%= stylesheet_link_tag "application", :media => "all" %>
 	<%= stylesheet_link_tag "bootstrap", :media => "all" %>
 	<%= stylesheet_link_tag "bootstrap-responsive", :media => "all" %>
 	<%= stylesheet_link_tag "print", :media => "print" %>
@@ -17,22 +17,50 @@
 	<!--[if !IE]>-->
 	<link media="only screen and (max-device-width: 480px)" href="<%= stylesheet_path "iphone.css" %>" type="text/css" rel="stylesheet" />
 	<!--<![endif]-->
-	<meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
 </head>
 
-<body>
-	<a href="https://github.com/foozmeat/Wheelbuilder"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://assets0.github.com/img/30f550e0d38ceb6ef5b81500c64d970b7fb0f028?repo=&url=http%3A%2F%2Fs3.amazonaws.com%2Fgithub%2Fribbons%2Fforkme_right_orange_ff7600.png&path=" alt="Fork me on GitHub"></a>
+<body>	
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">wheelbuilder.freebiketools.org</a>
+        </div>
+      </div>
+    </div>
+
 	<% unless @no_menu %>
+  <div class="container">
+  <div class="row">
+  <div class="span4">
   <div id="top">
 	  <%= render :partial => 'layouts/menus' %>
-  </div>
+  </div> <!-- top -->
+  </div> <!-- span4 -->
+  </div> <!-- row -->
+  </div> <!-- container -->
   <hr>
 	<% end %>
 	
+  <div class="container">
+  <div class="row">
+  <div class="span12">
 	<div id="editor_area">
 		<%= yield %>
 	</div>
-	  <div>Hi, thanks for visiting. I'd like to redesign the UI of this tool. If you're a web designer and wouldn't mind donating some of your time <a href="mailto:james@freebiketools.org">please email me</a>. Thanks!</div>
+  </div> <!-- span4 -->
+  </div> <!-- row -->
+  </div> <!-- container -->
 
   <!-- <div class="small">All images used on freebiketools.org are &copy;2008 their respective owners. Product images which have been provided by manufacturers are being used solely for informational purposes.</div> -->
 	<script type="text/javascript">

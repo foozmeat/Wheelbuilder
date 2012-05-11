@@ -3,10 +3,10 @@
 
 <form id="wheel">
 
-<table>
+<table class="table-condensed table-bordered" style="width: 600px;">
 	<tr>
  		<th><u><%= link_to_remote "Select Hub", :update => "editor_area", :url => {:controller => "hub", :action => "list"},:before => "Element.show('menu_spinner')", :success => "Element.hide('menu_spinner')" %></u></th>
- 		<td><select <%= session[:hub_list].length == 0 ? "disabled" : "" %> name="hub" id="hub_selector">
+ 		<td><select <%= session[:hub_list].length == 0 ? "disabled" : "" %> name="hub" id="hub_selector" style="width: 400px">
  			<option disabled value="">or choose from your previous selections<%= session[:hub_list].length == 0 ? ' (<em>Empty</em>)' : "" %></option>
 			<% session[:hub_list].each{|h| 
 				h.each {|key, value| %>
@@ -21,7 +21,7 @@
 	</tr>
 	<tr>
 		<th><u><%= link_to_remote "Select Rim", :update => "editor_area", :url => {:controller => "rim", :action => "list"},:before => "Element.show('menu_spinner')", :success => "Element.hide('menu_spinner')" %></u></th>
-		<td><select <%= session[:rim_list].length == 0 ? "disabled" : "" %> name="rim" id="rim_selector">
+		<td><select <%= session[:rim_list].length == 0 ? "disabled" : "" %> name="rim" id="rim_selector"  style="width: 400px">
  			<option disabled value="">or choose from your previous selections<%= session[:rim_list].length == 0 ? ' (<em>Empty</em>)' : "" %></option>
 			<% session[:rim_list].each{|r| 
 				r.each {|key, value| %>
@@ -33,8 +33,7 @@
     <td><%= link_to_remote image_tag("add-item-green.gif", :alt => "Add Rim"), :update => "editor_area", :url => {:controller => "rim", :action => "new"},:before => "Element.show('menu_spinner')", :success => "Element.hide('menu_spinner')" %></td>
     <td><%= link_to image_tag("printer-green.gif", :alt => "Print Rim database"), {:controller => "rim", :action => "print"} %></td>
 	</tr>
-</table>
-<table>
+
 	<tr>
 	
   <th>Spokes</th>
@@ -73,7 +72,7 @@
 
 </form>
 
-<table id="results">
+<table id="results" class="table-condensed table-bordered" style="width: 600px;">
   <tr>
     <th>Left</th><td><%= session[:wheel].l_length %></td>
     <th>Right</th><td><%= session[:wheel].r_length %></td>
