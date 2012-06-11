@@ -98,11 +98,11 @@ module WillPaginate
 
         unless n - prev > 1
           prev = n
-          links << page_link_or_span((n != page ? n : nil), 'current', n)
+          links << page_link_or_span((n != page ? n : nil), 'active', n)
         else
           # ellipsis represents the gap between windows
           prev = n - 1
-          links << '...'
+          links << page_link_or_span(nil, nil, "...")
           redo
         end
       end
