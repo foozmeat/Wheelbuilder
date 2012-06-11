@@ -8,7 +8,7 @@
       <th>ERD</th>
       <th>OSB</th>
       <th>Size (ISO)</th>
-      <th>Age</th>
+<!--       <th>Age</th> -->
     </tr>
   </thead>
   <tbody>
@@ -28,7 +28,7 @@
       <td><%= i.erd %></td>
       <td><%= if i.osb.zero?; 0 else i.osb; end %></td>
       <td><%= i.size_for_display %> (<%= i.size %>)</td>
-      <td><%= display_age(i.created_on) %></td>
+<!--       <td><%= display_age(i.created_on) %></td> -->
     </tr>
     <% end %>
   </tbody>
