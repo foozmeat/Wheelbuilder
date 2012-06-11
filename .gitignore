@@ -5,3 +5,5 @@
 /config/database.yml
 /db/dump_db.sh
 /db/import_remote_db.sh
+
+.bundle/
