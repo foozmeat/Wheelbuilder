@@ -15,13 +15,13 @@
 </form>
 
 <%= observe_form 'sform',  :frequency => 2,
-         :update => 'table',
+         :update => 'rim_table',
          :before => "Element.show('menu_spinner')",
          :success => "Element.hide('menu_spinner')",
          :url => {:action => 'list'} %>
 
 
-<div class="table table-striped">
+<div id="rim_table" class="table table-striped">
 <%= render :partial => 'rims_list' %>
 </div>
 

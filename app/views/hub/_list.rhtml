@@ -14,13 +14,13 @@
 
 
 <%= observe_form 'sform',  :frequency => 0.5,
-         :update => 'table',
+         :update => 'hub_table',
          :before => "Element.show('menu_spinner')",
          :success => "Element.hide('menu_spinner')",
          :url => {:action => 'list'} %>
 
 
-<div class="table">
+<div id="hub_table" class="table">
 <%= render :partial => 'hubs_list' %>
 </div>
 <% end %>
