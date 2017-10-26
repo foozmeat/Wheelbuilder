@@ -7,3 +7,5 @@
 /db/import_remote_db.sh
 
 .bundle/
+
+vendor/
