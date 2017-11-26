@@ -1,0 +1,7 @@
+Flask
+flask_sqlalchemy
+Flask-WTF
+pandas
+pygal
+PyMySQL
+raven[flask]
