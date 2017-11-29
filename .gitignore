@@ -1,6 +1,7 @@
-/log/*
+/logs/*
 /tmp/*
 config.py
 .idea
-
 /.wb_venv
+/wheelbuilder.db
+__pycache__
