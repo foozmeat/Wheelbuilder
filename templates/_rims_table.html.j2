@@ -1,9 +1,6 @@
-{% if rims_paginated.has_prev %}
-    <a href="{{ url_for('rims_list', page=rims_paginated.prev_num) }}">« Previous</a>
-{% endif %} |
-{% if rims_paginated.has_next %}
-    <a href="{{ url_for('rims_list', page=rims_paginated.next_num) }}">Next »</a>
-{% endif %}
+{% from "macros.j2" import render_pagination with context %}
+
+{{ render_pagination(rims_paginated, 'rims_list', search=form.search.data, size=form.size.data) }}
 
 <table class="table table-striped">
   <thead>
