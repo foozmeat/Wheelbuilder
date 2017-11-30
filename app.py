@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
 
 from wb.forms import SearchForm
-from wb.models import metadata, Rims
+from wb.models import metadata, Rims, Hubs
 
 app = Flask(__name__)
 config = os.environ.get('WB_CONFIG', 'config.DevelopmentConfig')
@@ -63,6 +63,37 @@ def rims_list(page=1):
 
     return render_template('_rims_table.html.j2',
                            rims_paginated=rims,
+                           form=form)
+
+
+@app.route('/hubs/list')
+@app.route('/hubs/list/<int:page>')
+def hubs_list(page=1):
+
+    hubs = db.session.query(Hubs)
+
+    form = SearchForm(request.args)
+    if form.validate():
+
+        forr = form.forr.data
+        search = form.search.data
+
+        app.logger.debug(forr)
+
+        if forr:
+            hubs = hubs.filter(Hubs.forr == forr)
+
+        if search:
+            hubs = hubs.filter(Hubs.description.like(f"%{search}%"))
+
+    else:
+        for e in form.errors.items():
+            app.logger.error(e)
+
+    hubs = hubs.order_by(Hubs.description.asc()).paginate(page=page, per_page=ITEMS_PER_PAGE)
+
+    return render_template('_hubs_table.html.j2',
+                           hubs_paginated=hubs,
                            form=form)
 
 

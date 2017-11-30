@@ -1,4 +1,5 @@
 {% macro render_pagination(pagination, endpoint, search=None, size=None, forr=None) %}
+
     {% if pagination.has_prev %}
         <a href="{{ url_for(endpoint,
         page=pagination.prev_num,
@@ -11,7 +12,9 @@
   {%- for page in pagination.iter_pages() %}
       {% if page %}
           {% if page != pagination.page %}
-              <a href="{{ url_for(endpoint, page=page, search=search, size=size, forr=forr) }}">{{ page }}</a>
+              <a href="{{ url_for(endpoint, page=page, search=form.search.data,
+                              size=form.size.data,
+                              forr=form.forr.data) }}">{{ page }}</a>
           {% else %}
               <strong>{{ page }}</strong>
           {% endif %}
@@ -23,7 +26,7 @@
 
     {% if pagination.has_next %}
         <a href="{{ url_for(endpoint,
-        page=pagination.prev_num,
+        page=pagination.next_num,
                 search=form.search.data,
                 size=form.size.data,
                 forr=form.forr.data) }}">Next »</a>{% else %}Next »

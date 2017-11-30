@@ -7,6 +7,6 @@ class SearchForm(FlaskForm):
     class Meta:
         csrf = False
 
-    forr = StringField(validators=[Length(max=1), Regexp(r'[fr]?')], default=None)
+    forr = StringField(validators=[Length(max=1), Regexp(r'[FR]?')], default=None)
     size = IntegerField(default=None)
     search = StringField(default=None)

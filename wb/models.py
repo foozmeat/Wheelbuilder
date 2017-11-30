@@ -8,6 +8,17 @@ from sqlalchemy.ext.declarative import declarative_base
 metadata = MetaData()
 Base = declarative_base(metadata=metadata)
 
+"""
+update hubs
+set created_on = datetime('now')
+where created_on = '0000-00-00 00:00:00'
+
+update hubs
+set updated_on = datetime('now')
+where updated_on = '0000-00-00 00:00:00'
+
+"""
+
 
 class Hubs(Base):
     __tablename__ = 'hubs'
@@ -29,7 +40,7 @@ class Hubs(Base):
 
     @property
     def forr_for_display(self):
-        return "Front" if self.forr == 'f' else "Rear"
+        return "Front" if self.forr == 'F' else "Rear"
 
     def __str__(self):
         return f"{self.description} ({self.forr_for_display}"
