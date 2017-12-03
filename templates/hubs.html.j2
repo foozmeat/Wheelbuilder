@@ -1,0 +1,43 @@
+{% extends "layout.html.j2" %}
+{% from "macros.j2" import render_pagination with context %}
+{% block body %}
+
+    {{ render_pagination(hubs_paginated, 'hubs_list', search=form.search.data, forr=form.size.forr) }}
+    <form method="GET" action="{{ url_for('hubs_list') }}">
+        Filter: {{ g.sform.search(placeholder='hub name', **{"oninput":"this.form.submit()"}) }} {{ g.sform.forr(**{"onchange":"this.form.submit()"}) }}
+    </form>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>OLD</th>
+            <th>D<sub>L</sub></th>
+            <th>D<sub>R</sub></th>
+            <th>W<sub>L</sub></th>
+            <th>W<sub>R</sub></th>
+            <th>S</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for hub in hubs_paginated.items %}
+            <tr>
+                <td>{{ hub.id }}
+                <td><a href="{{ url_for('wheel_add_hub', hub_id=hub.id) }}">{{ hub.description }}</a>
+                    {% if hub.comment %}
+                        <div class="comment">{{ hub.comment }}</div>
+                    {% endif %}
+                </td>
+                <td>{{ hub.forr_for_display }}</td>
+                <td>{{ hub.old }}</td>
+                <td>{{ hub.dl }}</td>
+                <td>{{ hub.dr }}</td>
+                <td>{{ hub.wl }}</td>
+                <td>{{ hub.wr }}</td>
+                <td>{{ hub.s }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

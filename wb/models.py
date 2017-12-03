@@ -1,8 +1,7 @@
 from datetime import datetime
-from math import sqrt, sin, pi, cos
+from math import cos, pi, sin, sqrt
 
-from sqlalchemy import MetaData, Column, Integer, String, DateTime, Float, \
-    Index
+from sqlalchemy import Column, DateTime, Float, Index, Integer, MetaData, String
 from sqlalchemy.ext.declarative import declarative_base
 
 metadata = MetaData()
@@ -45,6 +44,19 @@ class Hubs(Base):
     def __str__(self):
         return f"{self.description} ({self.forr_for_display}"
 
+    @property
+    def mru_props(self):
+        return self.id, self.description
+
+    def as_dict(self):
+        return {
+            's': self.s,
+            'dl': self.dl,
+            'dr': self.dr,
+            'wl': self.wl,
+            'wr': self.wr,
+        }
+
 
 Index('index_hubs_on_forr', Hubs.forr)
 Index('index_hubs_on_description', Hubs.description)
@@ -63,6 +75,9 @@ class Rims(Base):
 
     created_on = Column(DateTime, default=datetime.utcnow)
     updated_on = Column(DateTime)
+
+    def __init__(self):
+        self.rim_size_cache = None
 
     @property
     def rim_correction_factor(self):
@@ -89,7 +104,17 @@ class Rims(Base):
 
     @property
     def size_for_display(self):
-        return rim_sizes.get(self.size, "Unknown")
+        return rim_sizes_for_display[self.size]
+
+    @property
+    def mru_props(self):
+        return self.id, self.description
+
+    def as_dict(self):
+        return {
+            'erd': self.erd,
+            'osb': self.osb,
+        }
 
     def __str__(self):
         return f"{self.description} ({self.size_for_display}"
@@ -100,69 +125,94 @@ Index('index_rims_on_description', Rims.description)
 
 
 class Wheel:
-    def __init__(self, hub, rim, cross=3, spokes=32, nipple_correction=0):
-        self.hub = hub
-        self.rim = rim
-        self.cross = cross
+    def __init__(self, hub_id: int = None, rim_id: int = None, pattern: int = 3, spokes: int = 32,
+                 nipple_length: int = 0):
+        self.hub_id = hub_id
+        self.rim_id = rim_id
+        self.pattern = pattern
         self.spokes = spokes
-        self.nipple_correction = nipple_correction
-
-    @property
-    def wl_effective(self):
-        return self.hub.wl - self.rim.osb
-
-    @property
-    def wr_effective(self):
-        return self.hub.wr + self.rim.osb
-
-    @property
-    def l_length(self):
-        if not self.spokes or not self.hub.dl or not self.rim.erd or not self.cross:
-            return 0
-
-        result = sqrt(
-            ((self.hub.dl / 2 * sin(2 * pi * self.cross / (self.spokes / 2))) ** 2) +
-            ((self.rim.erd / 2 - ((self.hub.dl / 2) * cos(2 * pi * self.cross / (self.spokes / 2)))) ** 2) +
-            (self.wl_effective ** 2)
-        ) - (self.hub.s / 2) - self.nipple_correction
-
-        return round(result, 1)
-
-    @property
-    def r_length(self):
-        if not self.spokes or not self.hub.dl or not self.rim.erd or not self.cross:
-            return 0
-
-        result = sqrt(
-            ((self.hub.dr / 2 * sin(2 * pi * self.cross / (self.spokes / 2))) ** 2) +
-            ((self.rim.erd / 2 - ((self.hub.dr / 2) * cos(2 * pi * self.cross / (self.spokes / 2)))) ** 2) +
-            (self.wr_effective ** 2)
-        ) - (self.hub.s / 2) - self.nipple_correction
-
-        return round(result, 1)
+        self.nipple_length = nipple_length
 
 
-patterns = {
-    0: "0-cross (Radial)",
-    1: "1-cross",
-    2: "2-cross",
-    3: "3-cross",
-    4: "4-cross",
-    5: "5-cross",
-}
+def wl_effective(hub, rim):
+    return hub['wl'] - rim['osb']
 
-nipple_corrections = {
-    0: "12mm",
-    1: "14mm",
-    3: "16mm"
-}
 
-spoke_counts = [16, 20, 24, 28, 32, 36, 40, 48]
+def wr_effective(hub, rim):
+    return hub['wr'] + rim['osb']
 
-rim_sizes = {
+
+def spoke_lengths(wheel, hub, rim):
+    if not wheel['spokes'] or not hub['dl'] or not hub['dr'] or not rim['erd'] or not wheel['pattern']:
+        return 0, 0
+
+    result_l = sqrt(
+        ((hub['dl'] / 2 * sin(2 * pi * wheel['pattern'] / (wheel['spokes'] / 2))) ** 2) +
+        ((rim['erd'] / 2 - ((hub['dl'] / 2) * cos(2 * pi * wheel['pattern'] / (wheel['spokes'] / 2)))) ** 2) +
+        (wl_effective(hub, rim) ** 2)
+    ) - (hub['s'] / 2) - wheel['nipple_length']
+
+    result_l = round(result_l, 1)
+
+    result_r = sqrt(
+        ((hub['dr'] / 2 * sin(2 * pi * wheel['pattern'] / (wheel['spokes'] / 2))) ** 2) +
+        ((rim['erd'] / 2 - ((hub['dr'] / 2) * cos(2 * pi * wheel['pattern'] / (wheel['spokes'] / 2)))) ** 2) +
+        (wr_effective(hub, rim) ** 2)
+    ) - (hub['s'] / 2) - wheel['nipple_length']
+
+    result_r = round(result_r, 1)
+
+    return result_l, result_r
+
+
+class Mru:
+    def __init__(self, l: list):
+        self.queue = l
+
+    def add(self, item):
+        self.queue = [item] + self.queue
+        self.queue = sorted(set(self.queue), key=lambda x: self.queue.index(x))
+
+        if len(self.queue) >= 10:
+            _ = self.queue.pop()
+
+
+patterns = [
+    (0, "0-cross (Radial)"),
+    (1, "1-cross"),
+    (2, "2-cross"),
+    (3, "3-cross"),
+    (4, "4-cross"),
+    (5, "5-cross"),
+]
+
+nipple_corrections = [
+    (0, "12mm"),
+    (1, "14mm"),
+    (3, "16mm")
+]
+
+spoke_counts = [(16, 16), (20, 20), (24, 24), (28, 28), (32, 32), (36, 36), (40, 40), (48, 48)]
+
+rim_sizes = [
+    (622, '700C'),
+    (559, '26"'),
+    (584, '650B / 26.5"'),
+    (630, '27"'),
+    (635, '28"'),
+    (571, '650C'),
+    (520, '24"'),
+    (507, '24"'),
+    (451, '20"'),
+    (406, '20"'),
+    (349, '16"'),
+    (305, '16"'),
+]
+
+rim_sizes_for_display = {
     622: '700C',
     559: '26"',
-    584: '650B',
+    584: '650B / 26.5"',
     630: '27"',
     635: '28"',
     571: '650C',

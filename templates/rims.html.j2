@@ -1,0 +1,36 @@
+{% extends "layout.html.j2" %}
+{% from "macros.j2" import render_pagination with context %}
+{% block body %}
+
+    {{ render_pagination(rims_paginated, 'rims_list', search=form.search.data, size=form.size.data) }}
+    <form method="GET" action="{{ url_for('rims_list') }}">
+        Filter: {{ g.sform.search(placeholder='rim name', **{"oninput":"this.form.submit()"}) }} {{ g.sform.size(**{"onchange":"this.form.submit()"}) }}
+    </form>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Description</th>
+            <th>ERD</th>
+            <th>OSB</th>
+            <th>Size (ISO)</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for rim in rims_paginated.items %}
+            <tr>
+                <td>{{ rim.id }}
+                <td><a href="{{ url_for('wheel_add_rim', rim_id=rim.id) }}">{{ rim.description }}</a>
+                    {% if rim.comment %}
+                        <div class="comment">{{ rim.comment }}</div>
+                    {% endif %}
+                </td>
+                <td>{{ rim.erd }}</td>
+                <td>{{ rim.osb }}</td>
+                <td>{{ rim.size_for_display }} ({{ rim.size }})</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

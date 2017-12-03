@@ -1,4 +1,5 @@
 {% macro render_pagination(pagination, endpoint, search=None, size=None, forr=None) %}
+<div class=pagination>
 
     {% if pagination.has_prev %}
         <a href="{{ url_for(endpoint,
@@ -8,7 +9,6 @@
         forr=form.forr.data) }}">« Previous</a>{% else %}« Previous
     {% endif %}
 
-    <span class=pagination>
   {%- for page in pagination.iter_pages() %}
       {% if page %}
           {% if page != pagination.page %}
@@ -22,7 +22,6 @@
           <span class=ellipsis>…</span>
       {% endif %}
   {%- endfor %}
-  </span>
 
     {% if pagination.has_next %}
         <a href="{{ url_for(endpoint,
@@ -31,6 +30,5 @@
                 size=form.size.data,
                 forr=form.forr.data) }}">Next »</a>{% else %}Next »
     {% endif %}
-
-
+</div>
 {% endmacro %}

@@ -18,6 +18,12 @@ form {
     border: 0.6rem double;
 }
 
+.pagination {
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+}
+
 a:link {
     text-decoration: none;
 }
@@ -34,15 +40,15 @@ a:link {
 
 input,
 select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -ms-appearance: none;
-    -o-appearance: none;
-    appearance: none;
-    border-radius: 0;
+    /*-webkit-appearance: none;*/
+    /*-moz-appearance: none;*/
+    /*-ms-appearance: none;*/
+    /*-o-appearance: none;*/
+    /*appearance: none;*/
+    /*border-radius: 0;*/
     font-size: 1.2em;
-    color: inherit;
-    border: 0;
+    /*color: inherit;*/
+    /*border: 0;*/
 }
 
 input[type="radio"]:before,
@@ -68,7 +74,6 @@ input[type="checkbox"]:checked:after {
 input[type="text"] {
     color: #444444;
     background: #CCCCCC;
-
 }
 
 input[type="submit"] {
@@ -113,11 +118,27 @@ input[type="submit"]:first-letter {
 }
 
 ul {
-  padding-left: 20px;
+    padding-left: 20px;
 }
 
 .badge {
     text-align: center;
     margin: auto;
     padding-top: 20px;
+}
+
+.comment {
+    font-size: 0.8em;
+}
+
+table {
+    width: 100%
+}
+
+td {
+    padding: 8px;
+}
+
+.table-striped tr:nth-child(even), th {
+    background: #CCC
 }
