@@ -4,7 +4,7 @@
 
     {{ render_pagination(hubs_paginated, 'hubs_list', search=form.search.data, forr=form.size.forr) }}
     <form method="GET" action="{{ url_for('hubs_list') }}">
-        Filter: {{ g.sform.search(placeholder='hub name', **{"oninput":"this.form.submit()"}) }} {{ g.sform.forr(**{"onchange":"this.form.submit()"}) }}
+        Filter: {{ g.sform.search(placeholder='hub name') }} {{ g.sform.forr(**{"onchange":"this.form.submit()"}) }}
     </form>
     <table class="table table-striped">
         <thead>

@@ -4,7 +4,7 @@
 
     {{ render_pagination(rims_paginated, 'rims_list', search=form.search.data, size=form.size.data) }}
     <form method="GET" action="{{ url_for('rims_list') }}">
-        Filter: {{ g.sform.search(placeholder='rim name', **{"oninput":"this.form.submit()"}) }} {{ g.sform.size(**{"onchange":"this.form.submit()"}) }}
+        Filter: {{ g.sform.search(placeholder='rim name') }} {{ g.sform.size(**{"onchange":"this.form.submit()"}) }}
     </form>
 
     <table class="table table-striped">

@@ -58,6 +58,9 @@ def before_request():
     if 'hub_mru' not in session:
         session['hub_mru'] = []
 
+    if 'lengths' not in session:
+        session['lengths'] = (0, 0)
+
 
 @app.route('/')
 def index():
@@ -136,7 +139,7 @@ def wheel_add_rim(rim_id=None):
 
     app.logger.info(session)
 
-    return redirect(url_for('rims_list'))
+    return redirect(url_for('index'))
 
 
 @app.route('/wheel/add_hub/<int:hub_id>')
@@ -160,7 +163,7 @@ def wheel_add_hub(hub_id=None):
 
     app.logger.info(session)
 
-    return redirect(url_for('hubs_list'))
+    return redirect(url_for('index'))
 
 
 @app.route('/rims/list')
