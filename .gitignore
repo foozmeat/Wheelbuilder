@@ -1,5 +1,5 @@
 /logs/*
-/tmp/*
+/tmp/restart.txt
 config.py
 .idea
 /.wb_venv

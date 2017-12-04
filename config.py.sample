@@ -5,10 +5,7 @@ class Config(object):
     CSRF_ENABLED = True
     SECRET_KEY = 'this-really-needs-to-be-changed'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    TWITTER_CONSUMER_KEY = ''
-    TWITTER_CONSUMER_SECRET = ''
-    SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/test.db'
-    SEND = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///wheelbuilder.db'
     SENTRY_DSN = ''
 
 
