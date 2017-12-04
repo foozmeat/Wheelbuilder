@@ -1,17 +1,18 @@
 import logging
 import os
 
-from flask import Flask, redirect, url_for
-from flask import render_template, session, request, g
+from flask import Flask, g, redirect, render_template, request, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
 
-from wb.forms import SearchForm, BuilderForm
-from wb.models import metadata, Rims, Hubs, Mru, Wheel, spoke_lengths
+from wb.forms import BuilderForm, SearchForm
+from wb.models import Hubs, Mru, Rims, Wheel, metadata, spoke_lengths
 
 app = Flask(__name__)
 config = os.environ.get('WB_CONFIG', 'config.DevelopmentConfig')
 app.config.from_object(config)
+app.static_url_path = app.config['URL_PREFIX'] + '/static'
+
 app.logger.setLevel(logging.DEBUG)
 
 if app.config['SENTRY_DSN']:
@@ -64,7 +65,6 @@ def before_request():
 
 @app.route(app.config['URL_PREFIX'] + '/')
 def index():
-
     g.bform = bform()
     return render_template('index.html.j2')
 
