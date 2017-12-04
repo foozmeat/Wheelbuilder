@@ -62,14 +62,14 @@ def before_request():
         session['lengths'] = (0, 0)
 
 
-@app.route('/')
+@app.route(app.config['URL_PREFIX'] + '/')
 def index():
 
     g.bform = bform()
     return render_template('index.html.j2')
 
 
-@app.route('/wheel', methods=["POST"])
+@app.route(app.config['URL_PREFIX'] + '/wheel', methods=["POST"])
 def wheel():
     app.logger.info(session)
 
@@ -120,7 +120,7 @@ def wheel():
     return redirect(url_for('index'))
 
 
-@app.route('/wheel/add_rim/<int:rim_id>')
+@app.route(app.config['URL_PREFIX'] + '/wheel/add_rim/<int:rim_id>')
 def wheel_add_rim(rim_id=None):
     try:
         rim = db.session.query(Rims).filter_by(id=rim_id).first()
@@ -142,7 +142,7 @@ def wheel_add_rim(rim_id=None):
     return redirect(url_for('index'))
 
 
-@app.route('/wheel/add_hub/<int:hub_id>')
+@app.route(app.config['URL_PREFIX'] + '/wheel/add_hub/<int:hub_id>')
 def wheel_add_hub(hub_id=None):
     try:
         hub = db.session.query(Hubs).filter_by(id=hub_id).first()
@@ -166,8 +166,8 @@ def wheel_add_hub(hub_id=None):
     return redirect(url_for('index'))
 
 
-@app.route('/rims/list')
-@app.route('/rims/list/<int:page>')
+@app.route(app.config['URL_PREFIX'] + '/rims/list')
+@app.route(app.config['URL_PREFIX'] + '/rims/list/<int:page>')
 def rims_list(page=1):
     g.bform = bform()
     g.sform = SearchForm(request.args)
@@ -197,8 +197,8 @@ def rims_list(page=1):
                            form=form)
 
 
-@app.route('/hubs/list')
-@app.route('/hubs/list/<int:page>')
+@app.route(app.config['URL_PREFIX'] + '/hubs/list')
+@app.route(app.config['URL_PREFIX'] + '/hubs/list/<int:page>')
 def hubs_list(page=1):
     app.logger.info(session)
 
