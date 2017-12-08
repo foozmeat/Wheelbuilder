@@ -20,8 +20,8 @@ class BuilderForm(FlaskForm):
     class Meta:
         csrf = False
 
-    hub_field = SelectField('Hub Selector', choices=[], validators=[Optional()], coerce=int)
-    rim_field = SelectField('Rim Selector', choices=[], validators=[Optional()], coerce=int)
+    hub_field = SelectField('Previously Selected Hubs', choices=[], validators=[Optional()], coerce=int)
+    rim_field = SelectField('Previously Selected Rims', choices=[], validators=[Optional()], coerce=int)
     spoke_field = SelectField('Spokes', choices=spoke_counts, coerce=int)
     pattern_field = SelectField('Pattern', choices=patterns, coerce=int)
     nipple_length_field = SelectField('Nipple Length', choices=nipple_corrections, coerce=int)

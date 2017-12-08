@@ -2,8 +2,11 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Wheelbuilder</title>
-
+    <link href="//cdn.muicss.com/mui-0.9.30/css/mui.min.css" rel="stylesheet" type="text/css"/>
+    <script src="//cdn.muicss.com/mui-0.9.30/js/mui.min.js"></script>
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
     <meta property="og:type" content="website"/>
     {#    <meta property="og:url" content="https://moa.party" />#}
@@ -18,69 +21,107 @@
 
 </head>
 <body>
-<div class="center">
-<pre>
-          _               _ _           _ _     _
-__      _| |__   ___  ___| | |__  _   _(_) | __| | ___ _ __
-\ \ /\ / / '_ \ / _ \/ _ \ | '_ \| | | | | |/ _` |/ _ \ '__|
- \ V  V /| | | |  __/  __/ | |_) | |_| | | | (_| |  __/ |
-  \_/\_/ |_| |_|\___|\___|_|_.__/ \__,_|_|_|\__,_|\___|_| (2017)
-</pre>
 
-    {% for message in get_flashed_messages() %}
-        <p class=message>{{ message }}</p>
-    {% endfor %}
+<header>
+    <div class="mui-appbar  mui--z1">
+        <div class="mui-container">
+            <table>
+                <tr class="mui--appbar-height">
+                    <td class="mui--text-title">Wheelbuilder</td>
+                    <td class="mui--text-right">
+                        <ul class="mui-list--inline mui--text-body2">
+                            <li><a href="{{ url_for('hubs_list') }}">Hub List</a></li>
+                            <li><a href="{{ url_for('rims_list') }}">Rim List</a></li>
+                            <li><a href="{{ url_for('hubs_add') }}">Add Hub</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
 
-    {% if show_builder %}
-    <form method="post" action="{{ url_for('wheel') }}">
-        <table>
-            <tr>
-                <td><a href="{{ url_for('hubs_list') }}">Select Hub</a></td>
-                <td>{{ g.bform.hub_field(**{"oninput":"this.form.submit()"}) }}
-                    <a href="{{ url_for('hubs_add') }}">Add Hub</a>
-                </td>
-            </tr>
-            <tr>
-                <td><a href="{{ url_for('rims_list') }}">Select Rim</a></td>
-                <td>{{ g.bform.rim_field(**{"oninput":"this.form.submit()"}) }}</td>
-            </tr>
-            <tr>
-                <td>Spokes</td>
-                <td>{{ g.bform.spoke_field(**{"oninput":"this.form.submit()"}) }}</td>
-            </tr>
-            <tr>
-                <td>Pattern</td>
-                <td>{{ g.bform.pattern_field(**{"oninput":"this.form.submit()"}) }}</td>
-            </tr>
-            <tr>
-                <td>Nipple Length</td>
-                <td>{{ g.bform.nipple_length_field(**{"oninput":"this.form.submit()"}) }}</td>
-            </tr>
-        </table>
-    </form>
+    </div>
+</header>
 
-    <table>
-        <tr>
-            <td>Left: {{ session.lengths[0] }}</td><td>Right: {{ session.lengths[1] }}</td><td>Link to this Build</td><td>Print this Build</td>
-        </tr>
-    </table>
-    <hr>
-    {% endif %}
+<div id="content-wrapper" class="mui--text-center">
+    <div class="mui--appbar-height"></div>
+    <br>
+    <br>
+    <div class="mui-container-fluid">
+        {% for message in get_flashed_messages() %}
+            <p class=message>{{ message }}</p>
+        {% endfor %}
+
+        {% if show_builder %}
+            <div class="mui-row">
+                <div class="mui-col-md-3"></div>
+
+                <div class="mui-col-md-6">
+                    <form class="mui-form" method="post" action="{{ url_for('wheel') }}">
+                        {% if g.bform.hub_field.choices|length > 0 %}
+                            <div class="mui-select">
+                                {{ g.bform.hub_field.label }}
+                                {{ g.bform.hub_field(**{"oninput":"this.form.submit()"}) }}
+                            </div>
+                        {% endif %}
+
+                        {% if g.bform.rim_field.choices|length > 0 %}
+                            <div class="mui-select">
+                                {{ g.bform.rim_field.label }}
+                                {{ g.bform.rim_field(**{"oninput":"this.form.submit()"}) }}
+                            </div>
+                        {% endif %}
+                        <div class="mui-select">
+                            {{ g.bform.spoke_field.label }}
+                            {{ g.bform.spoke_field(**{"oninput":"this.form.submit()"}) }}
+                        </div>
+
+                        <div class="mui-select">
+                            {{ g.bform.pattern_field.label }}
+                            {{ g.bform.pattern_field(**{"oninput":"this.form.submit()"}) }}
+                        </div>
+
+                        <div class="mui-select">
+                            {{ g.bform.nipple_length_field.label }}
+                            {{ g.bform.nipple_length_field(**{"oninput":"this.form.submit()"}) }}
+                        </div>
+
+                    </form>
+                </div>
+                <div class="mui-col-md-3"></div>
+            </div>
+            {% if session.lengths[0] > 0 %}
+                <div class="mui-row mui--text-center">
+                    <div class="mui-col-md-3"></div>
+                    <div class="mui-col-md-6">
+                        Left: {{ session.lengths[0] }}
+                        <span class="mui--divider-left">&nbsp;Right: {{ session.lengths[1] }}</span>
+
+                    </div>
+                    <div class="mui-col-md-3"></div>
+                </div>
+            {% endif %}
+            </div>
+        {% endif %}
 
     {% block body %}{% endblock %}
-
-    <hr>
-    <p>Created by <a target="_new" href="https://pdx.social/@foozmeat">James Moore</a>.
-        Code available on <a target="_new" href="https://github.com/foozmeat/wheelbuilder">Github</a>.</p>
-    <p><a href="https://www.patreon.com/bePatron?u=4446349">Become a Patron</a>.</p>
-
 </div>
 
-<div class="badge">
-    <a target="_blank" href="https://www.jetbrains.com/pycharm/">
-        <img style="image-rendering: pixelated;" src="{{ url_for('static', filename='madewpc.gif') }}">
-    </a>
-</div>
+<footer>
+    <div class="mui-container mui--text-center">
+        <div>Created by <a target="_new" href="https://pdx.social/@foozmeat">James Moore</a>.
+            Code available on <a target="_new" href="https://github.com/foozmeat/wheelbuilder">Github</a>.
+        </div>
+        <div><a href="https://www.patreon.com/bePatron?u=4446349">Become a Patron</a>.</div>
+
+
+        <div class="badge">
+            <a target="_blank" href="https://www.jetbrains.com/pycharm/">
+                <img style="image-rendering: pixelated;" src="{{ url_for('static', filename='madewpc.gif') }}">
+            </a>
+        </div>
+
+    </div>
+</footer>
 
 </body>
 </html>

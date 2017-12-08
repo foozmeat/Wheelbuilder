@@ -1,59 +1,71 @@
+/**
+ * Body CSS
+ */
+html,
 body {
+  height: 100%;
 }
 
-input, select {
+html,
+body,
+input,
+textarea,
+buttons {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
 }
 
-form {
-    display: inline;
+
+/**
+ * Header CSS
+ */
+header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 2;
 }
 
-.center {
-    margin: auto;
-    width: 80%;
-    padding: 10px;
-    /*border: 0.6rem double;*/
+header ul.mui-list--inline {
+  margin-bottom: 0;
 }
 
-.pagination {
-    margin: auto;
-    padding: 10px;
-    text-align: center;
+header a {
+  color: white;
 }
 
-a:link {
-    text-decoration: none;
+header table {
+  width: 100%;
 }
 
-.message {
-    font-weight: bold;
-    color: red;
+
+/**
+ * Content CSS
+ */
+#content-wrapper {
+  min-height: 100%;
+
+  /* sticky footer */
+  box-sizing: border-box;
+  margin-bottom: -100px;
+  padding-bottom: 100px;
 }
 
-.message:before {
-    content: "»";
-    margin-right: 6px;
-}
 
-.badge {
-    text-align: center;
-    margin: auto;
-    padding-top: 20px;
-}
-
-.help {
-    font-size: 0.8em;
-    font-style: italic;
-}
-
-table {
-    width: 100%
-}
-
-td {
-    padding: 8px;
+/**
+ * Footer CSS
+ */
+footer {
+  box-sizing: border-box;
+  height: 100px;
+  background-color: #eee;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 15px;
 }
 
 .table-striped tr:nth-child(even), th {
     background: #CCC
 }
+

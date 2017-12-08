@@ -1,45 +1,49 @@
 {% extends "layout.html.j2" %}
 {% block body %}
 
-    <form method="POST" action="{{ url_for('hubs_add') }}">
-        <h2>New Hub</h2>
+    <form class="mui-form" method="POST" action="{{ url_for('hubs_add') }}">
+        <legend>New Hub</legend>
 
-        <div>
+        <div class="mui-textfield ">
             {{ form.description.label }}{{ form.description(size=40) }}
-            <div class="help">{{ form.description.description }}</div>
+            <div class="dark-hint">{{ form.description.description }}</div>
         </div>
 
-        <div>
+        <div class="mui-textfield">
             {{ form.comment.label }}{{ form.comment }}
-            <div class="help">{{ form.comment.description }}</div>
+            <div class="dark-hint">{{ form.comment.description }}</div>
         </div>
 
-        <div>
+        <div class="mui-textfield">
             {{ form.email.label }}{{ form.email(size=30) }}
-            <div class="help">{{ form.email.description }}</div>
+            <div class="dark-hint">{{ form.email.description }}</div>
         </div>
 
-        <div>
+        <div class="mui-select">
+            {{ form.forr }}
+        </div>
+
+
+        <div class="mui-textfield ">
             {{ form.s.label }}{{ form.s(size=4, placeholder=2.5) }}
             <div class="help">{{ form.s.description }}</div>
         </div>
 
-        <div>
-            {{ form.forr.label }}{{ form.forr }}
-        </div>
-
-        <div>
-            {{ form.old.label }}{{ form.old(size=4) }}
+        <div class="mui-textfield ">
+            {{ form.old.label }}{{ form.old(size=4, placeholder=100) }}
             <div class="help">{{ form.old.description }}</div>
         </div>
 
-        <div>
+        <div class="mui-textfield ">
             {{ form.dl.label }}{{ form.dl(size=4) }}
+        </div>
+
+        <div class="mui-textfield ">
             {{ form.dr.label }}{{ form.dr(size=4) }}
             <div class="help">{{ form.dl.description }}</div>
         </div>
 
-        <div>
+        <div class="mui-textfield ">
             {{ form.wl.label }}{{ form.wl(size=4) }}
             {{ form.wr.label }}{{ form.wr(size=4) }}
             <div class="help">{{ form.wl.description }}</div>
@@ -47,7 +51,7 @@
 
         {{ form.csrf_token }}
         <div>
-            <input type="submit" value="Submit Hub">
+            <input type="submit" value="Submit Hub" class="mui-btn mui-btn--raised">
         </div>
     </form>
 
