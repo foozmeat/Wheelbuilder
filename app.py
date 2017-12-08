@@ -1,17 +1,16 @@
 import logging
 import os
 
-from flask import Flask, g, redirect, render_template, request, session, url_for
+from flask import Flask, g, redirect, render_template, request, session, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
 
-from wb.forms import BuilderForm, SearchForm
+from wb.forms import BuilderForm, HubForm, SearchForm
 from wb.models import Hubs, Mru, Rims, Wheel, metadata, spoke_lengths
 
 app = Flask(__name__)
 config = os.environ.get('WB_CONFIG', 'config.DevelopmentConfig')
 app.config.from_object(config)
-app.static_url_path = app.config['URL_PREFIX'] + '/static'
 
 app.logger.setLevel(logging.DEBUG)
 
@@ -66,7 +65,7 @@ def before_request():
 @app.route('/')
 def index():
     g.bform = bform()
-    return render_template('index.html.j2')
+    return render_template('index.html.j2', show_builder=True)
 
 
 @app.route('/wheel', methods=["POST"])
@@ -194,6 +193,31 @@ def rims_list(page=1):
 
     return render_template('rims.html.j2',
                            rims_paginated=rims,
+                           form=form,
+                           show_builder=True)
+
+
+@app.route('/hubs/add', methods=["GET", "POST"])
+def hubs_add():
+
+    form = HubForm(request.form)
+
+    if request.method == "POST" and form.validate_on_submit():
+
+        hub = Hubs()
+        form.populate_obj(hub)
+        db.session.add(hub)
+        db.session.commit()
+
+        flash("Hub Created")
+
+        return redirect(url_for("wheel_add_hub", hub_id=hub.id))
+
+    else:
+        for e in form.errors.items():
+            flash(e)
+
+    return render_template('hubs_add.html.j2',
                            form=form)
 
 
@@ -227,7 +251,8 @@ def hubs_list(page=1):
 
     return render_template('hubs.html.j2',
                            hubs_paginated=hubs,
-                           form=form)
+                           form=form,
+                           show_builder=True)
 
 
 @app.errorhandler(404)

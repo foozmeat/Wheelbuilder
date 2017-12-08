@@ -27,11 +27,18 @@ __      _| |__   ___  ___| | |__  _   _(_) | __| | ___ _ __
   \_/\_/ |_| |_|\___|\___|_|_.__/ \__,_|_|_|\__,_|\___|_| (2017)
 </pre>
 
+    {% for message in get_flashed_messages() %}
+        <p class=message>{{ message }}</p>
+    {% endfor %}
+
+    {% if show_builder %}
     <form method="post" action="{{ url_for('wheel') }}">
         <table>
             <tr>
                 <td><a href="{{ url_for('hubs_list') }}">Select Hub</a></td>
-                <td>{{ g.bform.hub_field(**{"oninput":"this.form.submit()"}) }}</td>
+                <td>{{ g.bform.hub_field(**{"oninput":"this.form.submit()"}) }}
+                    <a href="{{ url_for('hubs_add') }}">Add Hub</a>
+                </td>
             </tr>
             <tr>
                 <td><a href="{{ url_for('rims_list') }}">Select Rim</a></td>
@@ -58,6 +65,7 @@ __      _| |__   ___  ___| | |__  _   _(_) | __| | ___ _ __
         </tr>
     </table>
     <hr>
+    {% endif %}
 
     {% block body %}{% endblock %}
 

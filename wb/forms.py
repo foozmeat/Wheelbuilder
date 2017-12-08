@@ -1,8 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField
-from wtforms.validators import Optional
+from wtforms import FloatField, SelectField, StringField
+from wtforms.fields.html5 import EmailField
+from wtforms.validators import InputRequired, Optional, Email
 
-from wb.models import patterns, nipple_corrections, spoke_counts, rim_sizes
+from wb.models import nipple_corrections, patterns, rim_sizes, spoke_counts
 
 
 class SearchForm(FlaskForm):
@@ -24,3 +25,19 @@ class BuilderForm(FlaskForm):
     spoke_field = SelectField('Spokes', choices=spoke_counts, coerce=int)
     pattern_field = SelectField('Pattern', choices=patterns, coerce=int)
     nipple_length_field = SelectField('Nipple Length', choices=nipple_corrections, coerce=int)
+
+
+class HubForm(FlaskForm):
+    description = StringField("Description", description="Include maker and model and whether or not it's a disc hub",
+                              validators=[InputRequired()])
+    s = FloatField("S", description="Spoke hole diameter", default=2.5)
+    dl = FloatField("DL", description="Flange diameter measured center to center of the spoke holes")
+    dr = FloatField("DR", description="")
+    wl = FloatField("WL",
+                    description="Distance between the center of the hub between the locknuts and the center of the flange")
+    wr = FloatField("WR", description="")
+    old = FloatField("OLD", description="Over Locknut Distance or the distance between the locknuts")
+    forr = SelectField("Front or Rear", choices=[('F', 'Front'), ('R', 'Rear')])
+    comment = StringField("Comment")
+    email = EmailField("Email", validators=[Email()],
+                       description="Used to contact you if there's a problem with your entry. It's not displayed anywhere on the site.")
