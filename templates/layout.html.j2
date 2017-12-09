@@ -48,7 +48,7 @@
     <br>
     <div class="mui-container-fluid">
         {% for message in get_flashed_messages() %}
-            <p class="mui--text-danger mui--text-headline">{{ message }}</p>
+            <div class="mui--text-danger mui--text-headline mui--text-center">{{ message }}</div>
         {% endfor %}
 
         {% if show_builder %}

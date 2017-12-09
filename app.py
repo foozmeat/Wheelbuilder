@@ -4,6 +4,7 @@ import os
 from flask import Flask, flash, g, redirect, render_template, request, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
+from flask_mail import Mail, Message
 
 from wb.forms import BuilderForm, HubForm, SearchForm, RimForm
 from wb.models import Hubs, Mru, Rims, Wheel, metadata, spoke_lengths
@@ -13,6 +14,7 @@ config = os.environ.get('WB_CONFIG', 'config.DevelopmentConfig')
 app.config.from_object(config)
 
 app.logger.setLevel(logging.DEBUG)
+mail = Mail(app)
 
 if app.config['SENTRY_DSN']:
     from raven.contrib.flask import Sentry
@@ -178,6 +180,14 @@ def rims_add():
 
         flash("Rim Created")
 
+        body = render_template('rims_email.txt.j2', form=form, rim=rim)
+
+        msg = Message(subject="New Rim submitted",
+                      body=body,
+                      sender="hello@jmoore.me",
+                      recipients=[form.email.data])
+        mail.send(msg)
+
         return redirect(url_for("wheel_add_rim", rim_id=rim.id))
 
     else:
@@ -232,6 +242,14 @@ def hubs_add():
         db.session.commit()
 
         flash("Hub Created")
+
+        body = render_template('hubs_email.txt.j2', form=form, hub=hub)
+
+        msg = Message(subject="New Hub submitted",
+                      body=body,
+                      sender="hello@jmoore.me",
+                      recipients=[form.email.data])
+        mail.send(msg)
 
         return redirect(url_for("wheel_add_hub", hub_id=hub.id))
 

@@ -13,7 +13,6 @@ class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://wheelbuilder:wheelbuilder@localhost/wheelbuilder'
     DEBUG = False
 
-
 class StageConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://wheelbuilder:wheelbuilder@localhost/wheelbuilder'
@@ -22,7 +21,6 @@ class StageConfig(Config):
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
-
 
 class TestingConfig(Config):
     TESTING = True
