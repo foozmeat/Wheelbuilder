@@ -41,3 +41,15 @@ class HubForm(FlaskForm):
     comment = StringField("Comment")
     email = EmailField("Email", validators=[Email()],
                        description="Used to contact you if there's a problem with your entry. It's not displayed anywhere on the site.")
+
+
+class RimForm(FlaskForm):
+    description = StringField("Description", description="Include the maker and model if possible",
+                              validators=[InputRequired()])
+    size = SelectField('Rim Size', choices=rim_sizes, coerce=int)
+    erd = FloatField("ERD", description="Effective Rim Diameter")
+    osb = FloatField("OSB", description="Offset Spoke Bed", default=0.0)
+    comment = StringField("Comment")
+    email = EmailField("Email", validators=[Email()],
+                       description="Used to contact you if there's a problem with your entry. It's not displayed anywhere on the site.")
+

@@ -1,5 +1,5 @@
 {% macro render_pagination(pagination, endpoint, search=None, size=None, forr=None) %}
-<div class=pagination>
+<div class="pagination mui--text-title">
 
     {% if pagination.has_prev %}
         <a href="{{ url_for(endpoint,

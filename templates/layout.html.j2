@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Wheelbuilder</title>
     <link href="//cdn.muicss.com/mui-0.9.30/css/mui.min.css" rel="stylesheet" type="text/css"/>
-    <script src="//cdn.muicss.com/mui-0.9.30/js/mui.min.js"></script>
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
     <meta property="og:type" content="website"/>
     {#    <meta property="og:url" content="https://moa.party" />#}
@@ -27,12 +26,13 @@
         <div class="mui-container">
             <table>
                 <tr class="mui--appbar-height">
-                    <td class="mui--text-title">Wheelbuilder</td>
+                    <td class="mui--text-title"><a href="{{ url_for('index') }}">Wheelbuilder</a></td>
                     <td class="mui--text-right">
                         <ul class="mui-list--inline mui--text-body2">
                             <li><a href="{{ url_for('hubs_list') }}">Hub List</a></li>
                             <li><a href="{{ url_for('rims_list') }}">Rim List</a></li>
                             <li><a href="{{ url_for('hubs_add') }}">Add Hub</a></li>
+                            <li><a href="{{ url_for('rims_add') }}">Add Rim</a></li>
                         </ul>
                     </td>
                 </tr>
@@ -42,13 +42,13 @@
     </div>
 </header>
 
-<div id="content-wrapper" class="mui--text-center">
+<div id="content-wrapper">
     <div class="mui--appbar-height"></div>
     <br>
     <br>
     <div class="mui-container-fluid">
         {% for message in get_flashed_messages() %}
-            <p class=message>{{ message }}</p>
+            <p class="mui--text-danger mui--text-headline">{{ message }}</p>
         {% endfor %}
 
         {% if show_builder %}
@@ -92,7 +92,7 @@
             {% if session.lengths[0] > 0 %}
                 <div class="mui-row mui--text-center">
                     <div class="mui-col-md-3"></div>
-                    <div class="mui-col-md-6">
+                    <div class="mui-col-md-6 mui--text-display1">
                         Left: {{ session.lengths[0] }}
                         <span class="mui--divider-left">&nbsp;Right: {{ session.lengths[1] }}</span>
 
@@ -100,10 +100,10 @@
                     <div class="mui-col-md-3"></div>
                 </div>
             {% endif %}
-            </div>
         {% endif %}
 
     {% block body %}{% endblock %}
+    </div>
 </div>
 
 <footer>
@@ -111,7 +111,7 @@
         <div>Created by <a target="_new" href="https://pdx.social/@foozmeat">James Moore</a>.
             Code available on <a target="_new" href="https://github.com/foozmeat/wheelbuilder">Github</a>.
         </div>
-        <div><a href="https://www.patreon.com/bePatron?u=4446349">Become a Patron</a>.</div>
+{#        <div><a href="https://www.patreon.com/bePatron?u=4446349">Become a Patron</a>.</div>#}
 
 
         <div class="badge">

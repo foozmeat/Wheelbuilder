@@ -1,11 +1,11 @@
 import logging
 import os
 
-from flask import Flask, g, redirect, render_template, request, session, url_for, flash
+from flask import Flask, flash, g, redirect, render_template, request, session, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
 
-from wb.forms import BuilderForm, HubForm, SearchForm
+from wb.forms import BuilderForm, HubForm, SearchForm, RimForm
 from wb.models import Hubs, Mru, Rims, Wheel, metadata, spoke_lengths
 
 app = Flask(__name__)
@@ -22,7 +22,7 @@ if app.config['SENTRY_DSN']:
 db = SQLAlchemy(metadata=metadata)
 db.init_app(app)
 
-ITEMS_PER_PAGE = 20
+ITEMS_PER_PAGE = 15
 
 
 def bform(data=None):
@@ -165,6 +165,29 @@ def wheel_add_hub(hub_id=None):
     return redirect(url_for('index'))
 
 
+@app.route('/rims/add', methods=["GET", "POST"])
+def rims_add():
+    form = RimForm(request.form)
+
+    if request.method == "POST" and form.validate_on_submit():
+
+        rim = Rims()
+        form.populate_obj(rim)
+        db.session.add(rim)
+        db.session.commit()
+
+        flash("Rim Created")
+
+        return redirect(url_for("wheel_add_rim", rim_id=rim.id))
+
+    else:
+        for e in form.errors.items():
+            flash(f"{e[0]} - {e[1][0]}")
+
+    return render_template('rims_add.html.j2',
+                           form=form)
+
+
 @app.route('/rims/list')
 @app.route('/rims/list/<int:page>')
 def rims_list(page=1):
@@ -199,7 +222,6 @@ def rims_list(page=1):
 
 @app.route('/hubs/add', methods=["GET", "POST"])
 def hubs_add():
-
     form = HubForm(request.form)
 
     if request.method == "POST" and form.validate_on_submit():
@@ -215,7 +237,7 @@ def hubs_add():
 
     else:
         for e in form.errors.items():
-            flash(e)
+            flash(f"{e[0]} - {e[1][0]}")
 
     return render_template('hubs_add.html.j2',
                            form=form)

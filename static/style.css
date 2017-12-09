@@ -53,6 +53,11 @@ header table {
   padding-bottom: 100px;
 }
 
+.pagination {
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+}
 
 /**
  * Footer CSS

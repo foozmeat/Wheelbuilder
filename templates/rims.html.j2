@@ -1,36 +1,41 @@
 {% extends "layout.html.j2" %}
 {% from "macros.j2" import render_pagination with context %}
 {% block body %}
+    <div class="mui-panel">
 
-    {{ render_pagination(rims_paginated, 'rims_list', search=form.search.data, size=form.size.data) }}
-    <form method="GET" action="{{ url_for('rims_list') }}">
-        Filter: {{ g.sform.search(placeholder='rim name') }} {{ g.sform.size(**{"onchange":"this.form.submit()"}) }}
-    </form>
+        {{ render_pagination(rims_paginated, 'rims_list', search=form.search.data, size=form.size.data) }}
+        <form class="mui-form" method="GET" action="{{ url_for('rims_list') }}">
+            <div class="mui--text-title mui--text-center">
 
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Description</th>
-            <th>ERD</th>
-            <th>OSB</th>
-            <th>Size (ISO)</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for rim in rims_paginated.items %}
+                Filter: {{ g.sform.search(placeholder='rim name', size=30) }} {{ g.sform.size(**{"onchange":"this.form.submit()"}) }}
+            </div>
+        </form>
+
+        <table class="mui-table table-striped mui--text-left">
+            <thead>
             <tr>
-                <td>{{ rim.id }}
-                <td><a href="{{ url_for('wheel_add_rim', rim_id=rim.id) }}">{{ rim.description }}</a>
-                    {% if rim.comment %}
-                        <div class="comment">{{ rim.comment }}</div>
-                    {% endif %}
-                </td>
-                <td>{{ rim.erd }}</td>
-                <td>{{ rim.osb }}</td>
-                <td>{{ rim.size_for_display }} ({{ rim.size }})</td>
+{#                <th>ID</th>#}
+                <th>Description</th>
+                <th>ERD</th>
+                <th>OSB</th>
+                <th>Size (ISO)</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for rim in rims_paginated.items %}
+                <tr>
+{#                    <td>{{ rim.id }}#}
+                    <td><a href="{{ url_for('wheel_add_rim', rim_id=rim.id) }}">{{ rim.description }}</a>
+                        {% if rim.comment %}
+                            <div class="comment mui--text-dark-hint">{{ rim.comment }}</div>
+                        {% endif %}
+                    </td>
+                    <td>{{ rim.erd }}</td>
+                    <td>{{ rim.osb }}</td>
+                    <td>{{ rim.size_for_display }} ({{ rim.size }})</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

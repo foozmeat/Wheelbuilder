@@ -6,8 +6,8 @@
     <div class="mui-col-md-6">
         <div class="mui-panel mui--text-left">
 
-            <form class="mui-form" method="POST" action="{{ url_for('hubs_add') }}">
-                <legend>New Hub</legend>
+            <form class="mui-form" method="POST" action="{{ url_for('rims_add') }}">
+                <legend>New Rim</legend>
 
                 <div class="mui-textfield ">
                     {{ form.description.label }}{{ form.description(size=40) }}
@@ -25,41 +25,21 @@
                 </div>
 
                 <div class="mui-select">
-                    {{ form.forr }}
-                </div>
-
-
-                <div class="mui-textfield ">
-                    {{ form.s.label }}{{ form.s(size=4, placeholder=2.5) }}
-                    <div class="help">{{ form.s.description }}</div>
+                    {{ form.size.label }}{{ form.size }}
                 </div>
 
                 <div class="mui-textfield ">
-                    {{ form.old.label }}{{ form.old(size=4, placeholder=100) }}
-                    <div class="help">{{ form.old.description }}</div>
+                    {{ form.erd.label }}{{ form.erd(size=4) }}
                 </div>
 
                 <div class="mui-textfield ">
-                    {{ form.dl.label }}{{ form.dl(size=4) }}
-                </div>
-
-                <div class="mui-textfield ">
-                    {{ form.dr.label }}{{ form.dr(size=4) }}
-                    <div class="help">{{ form.dl.description }}</div>
-                </div>
-
-                <div class="mui-textfield ">
-                    {{ form.wl.label }}{{ form.wl(size=4) }}
-                </div>
-
-                <div class="mui-textfield ">
-                    {{ form.wr.label }}{{ form.wr(size=4) }}
-                    <div class="help">{{ form.wl.description }}</div>
+                    {{ form.osb.label }}{{ form.osb(size=4) }}
+                    <div class="help">{{ form.osb.description }}</div>
                 </div>
 
                 {{ form.csrf_token }}
                 <div>
-                    <input type="submit" value="Submit Hub" class="mui-btn mui-btn--raised">
+                    <input type="submit" value="Submit Rim" class="mui-btn mui-btn--raised">
                 </div>
             </form>
         </div>
