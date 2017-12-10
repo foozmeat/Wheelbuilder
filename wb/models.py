@@ -80,29 +80,6 @@ class Rims(Base):
         self.rim_size_cache = None
 
     @property
-    def rim_correction_factor(self):
-        rc = {
-            0: 0,
-            635: 317,
-            630: 315,
-            622: 315,
-            584: 301,
-            571: 295,
-            559: 300,
-            520: 274,
-            507: 270,
-            451: 245,
-            406: 225,
-            355: 204,
-            349: 200,
-            305: 183
-        }
-
-        radius = self.erd / 2
-        rcf = radius - rc[self.size]
-        return round(rcf)
-
-    @property
     def size_for_display(self):
         return rim_sizes_for_display[self.size]
 
