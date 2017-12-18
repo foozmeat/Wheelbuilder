@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Wheelbuilder</title>
     <link href="//cdn.muicss.com/mui-0.9.30/css/mui.min.css" rel="stylesheet" type="text/css"/>
+
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    <link rel=stylesheet type=text/css media="print" href="{{ url_for('static', filename='print.css') }}">
+
     <meta property="og:type" content="website"/>
     {#    <meta property="og:url" content="https://moa.party" />#}
     {#    <meta property="og:title" content="Moa: Mastodon/Twitter Cross-poster" />#}
@@ -95,6 +98,7 @@
                     <div class="mui-col-md-6 mui--text-display1">
                         Left: {{ session.lengths[0] }}
                         <span class="mui--divider-left">&nbsp;Right: {{ session.lengths[1] }}</span>
+                        <div class="mui--text-subhead"><a href="{{ url_for('wheel_print') }}">Print this build</a></div>
 
                     </div>
                     <div class="mui-col-md-3"></div>

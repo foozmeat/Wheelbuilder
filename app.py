@@ -2,11 +2,11 @@ import logging
 import os
 
 from flask import Flask, flash, g, redirect, render_template, request, session, url_for
+from flask_mail import Mail, Message
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
-from flask_mail import Mail, Message
 
-from wb.forms import BuilderForm, HubForm, SearchForm, RimForm
+from wb.forms import BuilderForm, HubForm, RimForm, SearchForm
 from wb.models import Hubs, Mru, Rims, Wheel, metadata, spoke_lengths
 
 app = Flask(__name__)
@@ -165,6 +165,18 @@ def wheel_add_hub(hub_id=None):
     app.logger.info(session)
 
     return redirect(url_for('index'))
+
+
+@app.route('/wheel_print')
+def wheel_print():
+    rim = db.session.query(Rims).filter_by(id=session['wheel']['rim_id']).first()
+    hub = db.session.query(Hubs).filter_by(id=session['wheel']['hub_id']).first()
+
+    return render_template('print.html.j2',
+                           show_builder=False,
+                           hub=hub,
+                           rim=rim,
+                           wheel=session['wheel'])
 
 
 @app.route('/rims/add', methods=["GET", "POST"])

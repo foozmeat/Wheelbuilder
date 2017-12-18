@@ -8,6 +8,9 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///wheelbuilder.db'
     SENTRY_DSN = ''
     URL_PREFIX = "/"
+    MAIL_SERVER = ''
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
 
 class ProductionConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://wheelbuilder:wheelbuilder@localhost/wheelbuilder'

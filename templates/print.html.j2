@@ -1,0 +1,46 @@
+{% extends "layout.html.j2" %}
+{% block body %}
+    <div class="mui-row">
+        <div class="mui-col-md-3"></div>
+
+        <div class="mui-col-md-6">
+
+            <div class="mui-panel mui--text-left mui--text-title">
+                <table style="width:100%">
+                    <tr>
+                        <td>Rim</td>
+                        <td>{{ rim.description }}<br>{{ rim.size_for_display }} ({{ rim.size }})</td>
+                    </tr>
+                    <tr>
+                        <td>Hub</td>
+                        <td>{{ hub.description }}<br>OLD: {{ hub.old }}</td>
+                    </tr>
+                    <tr>
+                        <td>Spokes</td>
+                        <td>{{ wheel.spokes }}</td>
+                    </tr>
+                    <tr>
+                        <td>Pattern</td>
+                        <td>{{ wheel.pattern }}-cross</td>
+                    </tr>
+                    <tr>
+                        <td>Nipple Length</td>
+                        <td>{{ wheel.nipple_length }}</td>
+                    </tr>
+                    <tr>
+                        <td><div class="mui--text-display1 ">Left</div></td>
+                        <td><div class="mui--text-display1 ">{{ session.lengths[0] }}</div></td>
+                    </tr>
+                    <tr>
+                        <td><div class="mui--text-display1 ">Right</div></td>
+                        <td><div class="mui--text-display1 ">{{ session.lengths[1] }}</div></td>
+                    </tr>
+
+            </div>
+            </table>
+        </div>
+    </div>
+    <div class="mui-col-md-3"></div>
+
+    </div>
+{% endblock %}

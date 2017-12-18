@@ -1,0 +1,12 @@
+footer {
+    display: none;
+}
+
+.mui-appbar {
+    display: none;
+
+}
+
+.mui-col-md-6 {
+    width: 80%;
+}
