@@ -14,7 +14,7 @@ itsdangerous==0.24        # via flask
 jinja2==2.10              # via flask
 markupsafe==1.0           # via jinja2
 pymysql==0.7.11
-raven[flask]==6.3.0
+raven[flask]==6.4.0
 sqlalchemy==1.1.15        # via flask-sqlalchemy
 werkzeug==0.13            # via flask
 wtforms==2.1              # via flask-wtf
