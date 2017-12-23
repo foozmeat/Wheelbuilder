@@ -59,6 +59,12 @@ header table {
     text-align: center;
 }
 
+table > *:first-child:not(thead) td:first-child {
+  font-weight: bold;
+}
+
+
+
 /**
  * Footer CSS
  */

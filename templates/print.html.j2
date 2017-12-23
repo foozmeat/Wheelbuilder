@@ -12,12 +12,45 @@
                         <td>{{ rim.description }}<br>{{ rim.size_for_display }} ({{ rim.size }})</td>
                     </tr>
                     <tr>
-                        <td>Hub</td>
-                        <td>{{ hub.description }}<br>OLD: {{ hub.old }}</td>
+                        <td>ERD</td>
+                        <td>{{ rim.erd }}</td>
                     </tr>
                     <tr>
-                        <td>Spokes</td>
-                        <td>{{ wheel.spokes }}</td>
+                        <td>OSB</td>
+                        <td>{{ rim.osb }}</td>
+                    </tr>
+                    <tr>
+                        <td style="border-top: 1px solid black">Hub</td>
+                        <td style="border-top: 1px solid black">{{ hub.description }}</td>
+                    </tr>
+                    <tr>
+                        <td>S</td>
+                        <td>{{ hub.s }}</td>
+                    </tr>
+                    <tr>
+                        <td>D<sub>L</sub></td>
+                        <td>{{ hub.dl }}</td>
+                    </tr>
+                    <tr>
+                        <td>D<sub>R</sub></td>
+                        <td>{{ hub.dr }}</td>
+                    </tr>
+                    <tr>
+                        <td>W<sub>L</sub></td>
+                        <td>{{ hub.wl }}</td>
+                    </tr>
+                    <tr>
+                        <td>W<sub>R</sub></td>
+                        <td>{{ hub.wr }}</td>
+                    </tr>
+                    <tr>
+                        <td>OLD</td>
+                        <td>{{ hub.old }}</td>
+                    </tr>
+
+                    <tr>
+                        <td style="border-top: 1px solid black">Spokes</td>
+                        <td style="border-top: 1px solid black">{{ wheel.spokes }}</td>
                     </tr>
                     <tr>
                         <td>Pattern</td>
@@ -28,19 +61,25 @@
                         <td>{{ wheel.nipple_length }}</td>
                     </tr>
                     <tr>
-                        <td><div class="mui--text-display1 ">Left</div></td>
-                        <td><div class="mui--text-display1 ">{{ session.lengths[0] }}</div></td>
+                        <td style="border-top: 1px solid black">
+                            <div class="mui--text-display1 ">Left</div>
+                        </td>
+                        <td style="border-top: 1px solid black">
+                            <div class="mui--text-display1 ">{{ session.lengths[0] }}</div>
+                        </td>
                     </tr>
                     <tr>
-                        <td><div class="mui--text-display1 ">Right</div></td>
-                        <td><div class="mui--text-display1 ">{{ session.lengths[1] }}</div></td>
+                        <td>
+                            <div class="mui--text-display1 ">Right</div>
+                        </td>
+                        <td>
+                            <div class="mui--text-display1 ">{{ session.lengths[1] }}</div>
+                        </td>
                     </tr>
-
+                </table>
             </div>
-            </table>
         </div>
-    </div>
-    <div class="mui-col-md-3"></div>
+        <div class="mui-col-md-3"></div>
 
     </div>
 {% endblock %}
