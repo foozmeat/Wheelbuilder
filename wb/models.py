@@ -109,6 +109,7 @@ class Wheel:
         self.pattern = pattern
         self.spokes = spokes
         self.nipple_length = nipple_length
+        self.nipple_length_for_display = "12mm"
 
 
 def nipple_size_for_display(nipple_length):
