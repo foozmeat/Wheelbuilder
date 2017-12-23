@@ -7,7 +7,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
 
 from wb.forms import BuilderForm, HubForm, RimForm, SearchForm
-from wb.models import Hubs, Mru, Rims, Wheel, metadata, spoke_lengths
+from wb.models import Hubs, Mru, Rims, Wheel, metadata, spoke_lengths, nipple_size_for_display
 
 app = Flask(__name__)
 config = os.environ.get('WB_CONFIG', 'config.DevelopmentConfig')
@@ -108,6 +108,7 @@ def wheel():
         session['wheel']['spokes'] = b_form.spoke_field.data
         session['wheel']['pattern'] = b_form.pattern_field.data
         session['wheel']['nipple_length'] = b_form.nipple_length_field.data
+        session['wheel']['nipple_length_for_display'] = nipple_size_for_display(b_form.nipple_length_field.data)
         session.modified = True
 
     else:

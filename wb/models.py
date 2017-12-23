@@ -111,6 +111,15 @@ class Wheel:
         self.nipple_length = nipple_length
 
 
+def nipple_size_for_display(nipple_length):
+    if nipple_length == 0:
+        return "12mm"
+    elif nipple_length == 1:
+        return  "14mm"
+    elif nipple_length == 3:
+        return "16mm"
+
+
 def wl_effective(hub, rim):
     return hub['wl'] - rim['osb']
 
