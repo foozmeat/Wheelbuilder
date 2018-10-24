@@ -221,8 +221,8 @@ if __name__ == '__main__':
     import importlib
     from sqlalchemy import create_engine
 
-    moa_config = os.environ.get('MOA_CONFIG', 'DevelopmentConfig')
-    config = getattr(importlib.import_module('config'), moa_config)
+    wb_config = os.environ.get('WB_CONFIG', 'DevelopmentConfig')
+    config = getattr(importlib.import_module('config'), wb_config)
 
     if "mysql" in config.SQLALCHEMY_DATABASE_URI:
         pass
