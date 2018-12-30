@@ -1,6 +1,0 @@
-Flask
-flask_sqlalchemy
-Flask-WTF
-PyMySQL
-raven[flask]
-Flask-Mail

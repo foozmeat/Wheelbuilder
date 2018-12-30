@@ -2,6 +2,6 @@
 /tmp/restart.txt
 config.py
 .idea
-/.wb_venv
+/.venv
 /wheelbuilder.db
 __pycache__
