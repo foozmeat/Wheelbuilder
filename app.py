@@ -193,13 +193,16 @@ def rims_add():
 
         flash("Rim Created")
 
-        body = render_template('rims_email.txt.j2', form=form, rim=rim)
-
-        msg = Message(subject="New Rim submitted",
-                      body=body,
-                      sender="hello@jmoore.me",
-                      recipients=[form.email.data])
-        mail.send(msg)
+        if app.config.get('MAIL_SERVER', None):
+            body = render_template('rims_email.txt.j2', form=form, rim=rim)
+    
+            msg = Message(subject="New Rim submitted",
+                          body=body,
+                          recipients=[form.email.data])
+            try:
+                mail.send(msg)
+            except Exception as e:
+                app.logger.error(e)
 
         return redirect(url_for("wheel_add_rim", rim_id=rim.id))
 
