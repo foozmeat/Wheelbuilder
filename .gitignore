@@ -5,3 +5,4 @@ config.py
 /.venv
 /wheelbuilder.db
 __pycache__
+/passenger_wsgi.pyc
