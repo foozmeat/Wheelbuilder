@@ -271,16 +271,18 @@ def hubs_add():
 
         flash("Hub Created")
 
-        body = render_template('hubs_email.txt.j2', form=form, hub=hub)
+        if app.config.get('MAIL_SERVER', None):
 
-        msg = Message(subject="New Hub submitted",
-                      body=body,
-                      sender="hello@jmoore.me",
-                      recipients=[app.config.get('MAIL_TO', None)])
-        try:
-            mail.send(msg)
-        except Exception as e:
-            app.logger.error(e)
+            body = render_template('hubs_email.txt.j2', form=form, hub=hub)
+
+            msg = Message(subject="New Hub submitted",
+                          body=body,
+                          sender="hello@jmoore.me",
+                          recipients=[app.config.get('MAIL_TO', None)])
+            try:
+                mail.send(msg)
+            except Exception as e:
+                app.logger.error(e)
 
         return redirect(url_for("wheel_add_hub", hub_id=hub.id))
 
