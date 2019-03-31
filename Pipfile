@@ -11,7 +11,7 @@ Flask-SQLAlchemy = "==2.3.2"
 Flask-WTF = "==0.14.2"
 PyMySQL = "==0.9.3"
 raven = {extras = ["flask"],version = "*"}
-flask-mail = "*"
+Flask-Mail = "==0.9.1"
 pip-check = "*"
 
 [requires]
