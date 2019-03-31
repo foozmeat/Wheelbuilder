@@ -19,16 +19,13 @@ logHandler = TimedRotatingFileHandler('logs/app.log', when='D', backupCount=7)
 logHandler.setFormatter(formatter)
 
 # set the app logger level
-app.logger.setLevel(logging.INFO)
-
+app.logger.setLevel(logging.DEBUG)
 app.logger.addHandler(logHandler)
-
 app.logger.info("Starting up...")
 
 config = os.environ.get('WB_CONFIG', 'config.DevelopmentConfig')
 app.config.from_object(config)
 
-app.logger.setLevel(logging.DEBUG)
 mail = Mail(app)
 
 if app.config['SENTRY_DSN']:
@@ -43,7 +40,7 @@ ITEMS_PER_PAGE = 15
 
 
 def bform(data=None):
-    app.logger.info(session)
+    # app.logger.info(session)
 
     b = BuilderForm(data,
                     hub_field=session['wheel']['hub_id'],
@@ -213,7 +210,7 @@ def rims_add():
 
             msg = Message(subject="New Rim submitted",
                           body=body,
-                          recipients=[form.email.data])
+                          recipients=[app.config.get('MAIL_TO', None)])
             try:
                 mail.send(msg)
             except Exception as e:
@@ -279,7 +276,7 @@ def hubs_add():
         msg = Message(subject="New Hub submitted",
                       body=body,
                       sender="hello@jmoore.me",
-                      recipients=[form.email.data])
+                      recipients=[app.config.get('MAIL_TO', None)])
         try:
             mail.send(msg)
         except Exception as e:
