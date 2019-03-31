@@ -72,7 +72,7 @@ def index():
 
 @app.route('/wheel', methods=["POST"])
 def wheel():
-    app.logger.info(session)
+    # app.logger.info(session)
 
     b_form = bform(request.form)
 
@@ -118,7 +118,7 @@ def wheel():
     if 'hub' in session and 'rim' in session:
         session['lengths'] = spoke_lengths(session['wheel'], session['hub'], session['rim'])
 
-    app.logger.info(session)
+    # app.logger.info(session)
     return redirect(url_for('index'))
 
 
@@ -139,7 +139,7 @@ def wheel_add_rim(rim_id=None):
     if 'hub' in session and 'rim' in session:
         session['lengths'] = spoke_lengths(session['wheel'], session['hub'], session['rim'])
 
-    app.logger.info(session)
+    # app.logger.info(session)
 
     return redirect(url_for('index'))
 
@@ -163,7 +163,7 @@ def wheel_add_hub(hub_id=None):
     if 'hub' in session and 'rim' in session:
         session['lengths'] = spoke_lengths(session['wheel'], session['hub'], session['rim'])
 
-    app.logger.info(session)
+    # app.logger.info(session)
 
     return redirect(url_for('index'))
 
@@ -195,7 +195,7 @@ def rims_add():
 
         if app.config.get('MAIL_SERVER', None):
             body = render_template('rims_email.txt.j2', form=form, rim=rim)
-    
+
             msg = Message(subject="New Rim submitted",
                           body=body,
                           recipients=[form.email.data])
@@ -280,7 +280,7 @@ def hubs_add():
 @app.route('/hubs/list')
 @app.route('/hubs/list/<int:page>')
 def hubs_list(page=1):
-    app.logger.info(session)
+    # app.logger.info(session)
 
     g.bform = bform()
     g.sform = SearchForm(request.args)
