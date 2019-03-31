@@ -1,5 +1,6 @@
 import logging
 import os
+from logging.handlers import TimedRotatingFileHandler
 
 from flask import Flask, flash, g, redirect, render_template, request, session, url_for
 from flask_mail import Mail, Message
@@ -10,6 +11,20 @@ from wb.forms import BuilderForm, HubForm, RimForm, SearchForm
 from wb.models import Hubs, Mru, Rims, Wheel, metadata, spoke_lengths, nipple_size_for_display
 
 app = Flask(__name__)
+FORMAT = "%(asctime)-15s [%(filename)s:%(lineno)s : %(funcName)s()] %(message)s"
+formatter = logging.Formatter(FORMAT)
+
+# initialize the log handler
+logHandler = TimedRotatingFileHandler('logs/app.log', when='D', backupCount=7)
+logHandler.setFormatter(formatter)
+
+# set the app logger level
+app.logger.setLevel(logging.INFO)
+
+app.logger.addHandler(logHandler)
+
+app.logger.info("Starting up...")
+
 config = os.environ.get('WB_CONFIG', 'config.DevelopmentConfig')
 app.config.from_object(config)
 
