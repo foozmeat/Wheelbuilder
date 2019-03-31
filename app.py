@@ -265,7 +265,10 @@ def hubs_add():
                       body=body,
                       sender="hello@jmoore.me",
                       recipients=[form.email.data])
-        mail.send(msg)
+        try:
+            mail.send(msg)
+        except Exception as e:
+            app.logger.error(e)
 
         return redirect(url_for("wheel_add_hub", hub_id=hub.id))
 
