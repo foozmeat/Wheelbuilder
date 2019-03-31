@@ -26,8 +26,6 @@ app.logger.info("Starting up...")
 config = os.environ.get('WB_CONFIG', 'config.DevelopmentConfig')
 app.config.from_object(config)
 
-mail = Mail(app)
-
 if app.config['SENTRY_DSN']:
     from raven.contrib.flask import Sentry
 
@@ -206,6 +204,7 @@ def rims_add():
         flash("Rim Created")
 
         if app.config.get('MAIL_SERVER', None):
+            mail = Mail(app)
             body = render_template('rims_email.txt.j2', form=form, rim=rim)
 
             msg = Message(subject="New Rim submitted",
@@ -272,6 +271,7 @@ def hubs_add():
         flash("Hub Created")
 
         if app.config.get('MAIL_SERVER', None):
+            mail = Mail(app)
 
             body = render_template('hubs_email.txt.j2', form=form, hub=hub)
 
