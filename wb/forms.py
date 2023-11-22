@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import FloatField, SelectField, StringField
-from wtforms.fields.html5 import EmailField
+from wtforms.fields import EmailField
 from wtforms.validators import InputRequired, Optional, Email
 
 from wb.models import nipple_corrections, patterns, rim_sizes, spoke_counts
