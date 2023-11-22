@@ -27,6 +27,7 @@ config = os.environ.get('WB_CONFIG', 'config.DevelopmentConfig')
 app.config.from_object(config)
 
 if app.config['SENTRY_DSN']:
+    import sentry_sdk
     from sentry_sdk.integrations.flask import FlaskIntegration
 
     sentry_sdk.init(
