@@ -19,7 +19,7 @@ dnspython==2.4.2
     # via email-validator
 email-validator==2.1.0.post1
     # via -r requirements.in
-flask==2.3.1
+flask==2.3.2
     # via
     #   -r requirements.in
     #   flask-mail
@@ -56,7 +56,7 @@ sqlalchemy==1.4.50
     #   flask-sqlalchemy
 urllib3==2.1.0
     # via sentry-sdk
-werkzeug==2.3.0
+werkzeug==2.3.8
     # via flask
 wtforms==3.0.1
     # via flask-wtf
