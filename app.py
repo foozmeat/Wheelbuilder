@@ -319,7 +319,7 @@ def hubs_list(page=1):
         forr = form.forr.data
         search = form.search.data
 
-        if forr:
+        if forr and forr in ['F', 'R']:
             hubs = hubs.filter(Hubs.forr == forr)
 
         if search:
